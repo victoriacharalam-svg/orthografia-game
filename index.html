@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Παιχνίδι Ορθογραφίας  ι, η, ει, οι</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Παιχνίδι Ορθογραφίας</h1>
+            <p>Διάλεξε τη σωστή κατάληξη!</p>
+            <div class="score-board">
+                <div class="score-badge correct">
+                    <span>Σωστά:</span> <span id="correct-score">0</span>
+                </div>
+                <div class="score-badge wrong">
+                    <span>Λάθος:</span> <span id="wrong-score">0</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="game-area">
+            <div class="word-card" id="word-card">
+                <span id="word-stem">πουλ</span><span id="word-ending" class="missing">_</span>
+            </div>
+            
+            <div class="feedback-message" id="feedback-message"></div>
+
+            <div class="options-container">
+                <button class="option-btn" data-ending="ι">-ι</button>
+                <button class="option-btn" data-ending="η">-η</button>
+                <button class="option-btn" data-ending="ει">-ει</button>
+                <button class="option-btn" data-ending="οι">-οι</button>
+            </div>
+            
+            <button id="next-btn" class="next-btn hidden">Επόμενη Λέξη ➔</button>
+        </main>
+        
+        <!-- Confetti Canvas -->
+        <canvas id="confetti-canvas"></canvas>
+    </div>
+
+    <!-- Include Canvas Confetti library for winning effect -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
