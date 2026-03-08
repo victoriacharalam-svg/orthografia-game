@@ -1,36 +1,45 @@
 const words = [
-    // Nouns in -ι
-    { stem: 'πουλ', ending: 'ι', full: 'πουλί' },
-    { stem: 'παιδ', ending: 'ι', full: 'παιδί' },
-    { stem: 'σκυλ', ending: 'ι', full: 'σκυλί' },
-    { stem: 'χερ', ending: 'ι', full: 'χέρι' },
-    { stem: 'ποδ', ending: 'ι', full: 'πόδι' },
-    { stem: 'μαχαιρ', ending: 'ι', full: 'μαχαίρι' },
+    // Ουσιαστικά σε -ι
+    { stem: 'πουλ', option: 'ι', correct: 'ί', full: 'πουλί' },
+    { stem: 'παιδ', option: 'ι', correct: 'ί', full: 'παιδί' },
+    { stem: 'σκυλ', option: 'ι', correct: 'ί', full: 'σκυλί' },
+    { stem: 'χέρ', option: 'ι', correct: 'ι', full: 'χέρι' },
+    { stem: 'πόδ', option: 'ι', correct: 'ι', full: 'πόδι' },
+    { stem: 'μαχαίρ', option: 'ι', correct: 'ι', full: 'μαχαίρι' },
+    { stem: 'σπίτ', option: 'ι', correct: 'ι', full: 'σπίτι' },
+    { stem: 'κουτί', option: 'ι', correct: 'ί', full: 'κουτί' }, // wait stem is κουτ
     
-    // Nouns in -η
-    { stem: 'φων', ending: 'η', full: 'φωνή' },
-    { stem: 'βρυσ', ending: 'η', full: 'βρύση' },
-    { stem: 'νικ', ending: 'η', full: 'νίκη' },
-    { stem: 'αγαπ', ending: 'η', full: 'αγάπη' },
-    { stem: 'αυλ', ending: 'η', full: 'αυλή' },
-    { stem: 'βροχ', ending: 'η', full: 'βροχή' },
+    // Ουσιαστικά σε -η
+    { stem: 'φων', option: 'η', correct: 'ή', full: 'φωνή' },
+    { stem: 'βρύσ', option: 'η', correct: 'η', full: 'βρύση' },
+    { stem: 'νίκ', option: 'η', correct: 'η', full: 'νίκη' },
+    { stem: 'αγάπ', option: 'η', correct: 'η', full: 'αγάπη' },
+    { stem: 'αυλ', option: 'η', correct: 'ή', full: 'αυλή' },
+    { stem: 'βροχ', option: 'η', correct: 'ή', full: 'βροχή' },
+    { stem: 'αράχν', option: 'η', correct: 'η', full: 'αράχνη' },
 
-    // Verbs in -ει
-    { stem: 'τρεχ', ending: 'ει', full: 'τρέχει' },
-    { stem: 'παιζ', ending: 'ει', full: 'παίζει' },
-    { stem: 'γραφ', ending: 'ει', full: 'γράφει' },
-    { stem: 'διαβαζ', ending: 'ει', full: 'διαβάζει' },
-    { stem: 'βλεπ', ending: 'ει', full: 'βλέπει' },
-    { stem: 'κλαι', ending: 'ει', full: 'κλαίει' },
+    // Ρήματα σε -ει
+    { stem: 'τρέχ', option: 'ει', correct: 'ει', full: 'τρέχει' },
+    { stem: 'παίζ', option: 'ει', correct: 'ει', full: 'παίζει' },
+    { stem: 'γράφ', option: 'ει', correct: 'ει', full: 'γράφει' },
+    { stem: 'διαβάζ', option: 'ει', correct: 'ει', full: 'διαβάζει' },
+    { stem: 'βλέπ', option: 'ει', correct: 'ει', full: 'βλέπει' },
+    { stem: 'κλαί', option: 'ει', correct: 'ει', full: 'κλαίει' },
+    { stem: 'τραγουδά', option: 'ει', correct: 'ει', full: 'τραγουδάει' },
 
-    // Plural Nouns in -οι
-    { stem: 'ανθρωπ', ending: 'οι', full: 'άνθρωποι' },
-    { stem: 'δρομ', ending: 'οι', full: 'δρόμοι' },
-    { stem: 'φιλ', ending: 'οι', full: 'φίλοι' },
-    { stem: 'λυκ', ending: 'οι', full: 'λύκοι' },
-    { stem: 'κηπ', ending: 'οι', full: 'κήποι' },
-    { stem: 'γιατρ', ending: 'οι', full: 'γιατροί' }
+    // Πληθυντικός Ουσιαστικών σε -οι
+    { stem: 'άνθρωπ', option: 'οι', correct: 'οι', full: 'άνθρωποι' },
+    { stem: 'δρόμ', option: 'οι', correct: 'οι', full: 'δρόμοι' },
+    { stem: 'φίλ', option: 'οι', correct: 'οι', full: 'φίλοι' },
+    { stem: 'λύκ', option: 'οι', correct: 'οι', full: 'λύκοι' },
+    { stem: 'κήπ', option: 'οι', correct: 'οι', full: 'κήποι' },
+    { stem: 'γιατρ', option: 'οι', correct: 'οί', full: 'γιατροί' },
+    { stem: 'δασκάλ', option: 'οι', correct: 'οι', full: 'δάσκαλοι' } // wait, δάσκαλ + οι.
 ];
+
+// Διόρθωση μερικών λέξεων
+words[7] = { stem: 'κουτ', option: 'ι', correct: 'ί', full: 'κουτί' };
+words[26] = { stem: 'δάσκαλ', option: 'οι', correct: 'οι', full: 'δάσκαλοι' };
 
 let currentWordIndex = 0;
 let correctScore = 0;
@@ -47,9 +56,25 @@ const nextBtn = document.getElementById('next-btn');
 const correctScoreEl = document.getElementById('correct-score');
 const wrongScoreEl = document.getElementById('wrong-score');
 
+// Ήχοι (Προαιρετικό, αν θέλεις να προσθέσεις στο μέλλον)
+const playCorrectSound = () => {
+    try {
+        const audio = new Audio('https://www.myinstants.com/media/sounds/correct-chime.mp3');
+        audio.volume = 0.5;
+        audio.play().catch(e => console.log('Audio error:', e));
+    } catch (e) {}
+};
+
+const playWrongSound = () => {
+    try {
+        const audio = new Audio('https://www.myinstants.com/media/sounds/error-sound-effect.mp3');
+        audio.volume = 0.3;
+        audio.play().catch(e => console.log('Audio error:', e));
+    } catch (e) {}
+};
+
 // Initialize Game
 function initGame() {
-    // Shuffle words for random order testing
     words.sort(() => Math.random() - 0.5);
     currentWordIndex = 0;
     correctScore = 0;
@@ -71,10 +96,11 @@ function loadWord() {
     feedbackMessageEl.className = 'feedback-message';
     nextBtn.classList.add('hidden');
     
-    // Enable all buttons
+    // Ενεργοποίηση κουμπιών με εφε
     optionBtns.forEach(btn => {
         btn.disabled = false;
         btn.style.opacity = '1';
+        btn.style.transform = 'scale(1)';
     });
 }
 
@@ -84,17 +110,18 @@ function updateScore() {
 }
 
 function handleOptionClick(event) {
-    const selectedEnding = event.target.getAttribute('data-ending');
+    const selectedOption = event.target.getAttribute('data-ending');
     const currentWord = words[currentWordIndex];
 
-    if (selectedEnding === currentWord.ending) {
+    if (selectedOption === currentWord.option) {
         // Correct Answer
-        wordEndingEl.textContent = selectedEnding;
+        playCorrectSound();
+        wordEndingEl.textContent = currentWord.correct; // Βάζουμε το τονισμένο αν χρειάζεται
         wordEndingEl.className = 'missing filled-correct';
         wordCardEl.className = 'word-card correct-anim';
         
-        feedbackMessageEl.textContent = 'Μπράβο! Σωστό!';
-        feedbackMessageEl.className = 'feedback-message success';
+        feedbackMessageEl.textContent = 'Τέλεια! 🌟';
+        feedbackMessageEl.className = 'feedback-message success pop-in';
         
         if (attemptsForWord === 0) {
             correctScore++;
@@ -103,28 +130,36 @@ function handleOptionClick(event) {
 
         // Fire Confetti
         confetti({
-            particleCount: 150,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ['#2ed573', '#1dd1a1', '#ffeccc']
+            particleCount: 200,
+            spread: 90,
+            origin: { y: 0.5 },
+            colors: ['#FF4757', '#2ED573', '#FFA502', '#1E90FF', '#FF69B4']
         });
 
         // Disable buttons
-        optionBtns.forEach(btn => btn.disabled = true);
+        optionBtns.forEach(btn => {
+            btn.disabled = true;
+            if (btn.getAttribute('data-ending') !== currentWord.option) {
+                btn.style.opacity = '0.4';
+                btn.style.transform = 'scale(0.95)';
+            } else {
+                btn.classList.add('pulse-btn');
+            }
+        });
         
         // Show next button
         nextBtn.classList.remove('hidden');
         
     } else {
         // Wrong Answer
+        playWrongSound();
         attemptsForWord++;
         
         wordCardEl.classList.remove('shake');
-        // trigger reflow
-        void wordCardEl.offsetWidth;
+        void wordCardEl.offsetWidth; // trigger reflow
         wordCardEl.classList.add('shake');
         
-        feedbackMessageEl.textContent = 'Ωχ! Δοκίμασε ξανά...';
+        feedbackMessageEl.textContent = 'Ωχ! Δοκίμασε ξανά... 🤔';
         feedbackMessageEl.className = 'feedback-message error';
         
         if (attemptsForWord === 1) {
@@ -134,7 +169,8 @@ function handleOptionClick(event) {
         
         // Disable the clicked wrong button
         event.target.disabled = true;
-        event.target.style.opacity = '0.3';
+        event.target.style.opacity = '0.4';
+        event.target.style.transform = 'scale(0.9)';
     }
 }
 
@@ -144,10 +180,15 @@ optionBtns.forEach(btn => {
 });
 
 nextBtn.addEventListener('click', () => {
+    // Αφαίρεση pulse animation
+    optionBtns.forEach(btn => btn.classList.remove('pulse-btn'));
+    
     currentWordIndex++;
     if (currentWordIndex >= words.length) {
         // restart array
         initGame();
+        feedbackMessageEl.textContent = 'Μπράβο! Τελείωσες όλες τις λέξεις! 🏆';
+        feedbackMessageEl.className = 'feedback-message success pop-in';
     } else {
         loadWord();
     }
