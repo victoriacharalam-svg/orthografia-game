@@ -131,7 +131,8 @@ class PlayerBoard {
         const currentWord = this.playerWords[this.currentWordIndex];
         
         // Reset UI
-        if (currentWord.article && this.level === 1) {
+        const isVerb = ['εγώ', 'εσύ', 'αυτός', 'αυτή', 'αυτό', 'εμείς', 'εσείς', 'αυτοί'].includes(currentWord.article);
+        if (currentWord.article && (this.level === 1 || isVerb)) {
             this.wordArticleEl.textContent = currentWord.article + ' ';
             this.wordArticleEl.style.display = 'inline';
         } else {
