@@ -51,6 +51,7 @@ const words = [
 
 // DOM Elements for Mode Selection
 const startScreenEl = document.getElementById('start-screen');
+const levelScreenEl = document.getElementById('level-screen');
 const timeScreenEl = document.getElementById('time-screen');
 const gameContainerEl = document.getElementById('game-container');
 const timerDisplayEl = document.getElementById('timer-display');
@@ -59,6 +60,7 @@ const templateEl = document.getElementById('player-board-template');
 // Global Instances
 let playerBoards = [];
 let selectedMode = null;
+let selectedLevel = 1;
 let gameTimer = null;
 
 // Ήχοι (Προαιρετικό, αν θέλεις να προσθέσεις στο μέλλον)
@@ -88,7 +90,8 @@ function shuffleArray(array) {
 }
 
 class PlayerBoard {
-    constructor(containerElement) {
+    constructor(containerElement, level) {
+        this.level = level;
         // Clone the template
         this.boardEl = templateEl.content.cloneNode(true).querySelector('.player-board');
         containerElement.appendChild(this.boardEl);
@@ -128,7 +131,7 @@ class PlayerBoard {
         const currentWord = this.playerWords[this.currentWordIndex];
         
         // Reset UI
-        if (currentWord.article) {
+        if (currentWord.article && this.level === 1) {
             this.wordArticleEl.textContent = currentWord.article + ' ';
             this.wordArticleEl.style.display = 'inline';
         } else {
@@ -258,12 +261,23 @@ class PlayerBoard {
 window.selectMode = function(mode) {
     selectedMode = mode;
     startScreenEl.classList.add('hidden');
+    levelScreenEl.classList.remove('hidden');
+};
+
+window.selectLevel = function(level) {
+    selectedLevel = level;
+    levelScreenEl.classList.add('hidden');
     timeScreenEl.classList.remove('hidden');
 };
 
-window.goBack = function() {
-    timeScreenEl.classList.add('hidden');
+window.goBackToStart = function() {
+    levelScreenEl.classList.add('hidden');
     startScreenEl.classList.remove('hidden');
+};
+
+window.goBackToLevel = function() {
+    timeScreenEl.classList.add('hidden');
+    levelScreenEl.classList.remove('hidden');
 };
 
 // Start Game based on Mode and Time
@@ -280,15 +294,15 @@ window.startGame = function(seconds) {
 
     if (selectedMode === 'single') {
         gameContainerEl.classList.add('mode-single');
-        playerBoards.push(new PlayerBoard(gameContainerEl));
+        playerBoards.push(new PlayerBoard(gameContainerEl, selectedLevel));
     } else if (selectedMode === 'tablet') {
         gameContainerEl.classList.add('mode-tablet');
-        playerBoards.push(new PlayerBoard(gameContainerEl)); // Player 1
-        playerBoards.push(new PlayerBoard(gameContainerEl)); // Player 2
+        playerBoards.push(new PlayerBoard(gameContainerEl, selectedLevel));
+        playerBoards.push(new PlayerBoard(gameContainerEl, selectedLevel));
     } else if (selectedMode === 'board') {
         gameContainerEl.classList.add('mode-board');
-        playerBoards.push(new PlayerBoard(gameContainerEl)); // Player 1
-        playerBoards.push(new PlayerBoard(gameContainerEl)); // Player 2
+        playerBoards.push(new PlayerBoard(gameContainerEl, selectedLevel));
+        playerBoards.push(new PlayerBoard(gameContainerEl, selectedLevel));
     }
 
     startTimer(seconds);

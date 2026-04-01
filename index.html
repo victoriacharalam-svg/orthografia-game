@@ -40,6 +40,27 @@
 
         </div>
 
+        <!-- Οθόνη Επιλογής Επιπέδου -->
+        <div id="level-screen" class="start-screen hidden">
+            <header>
+                <h1>Παιχνίδι Ορθογραφίας</h1>
+                <p>Επέλεξε επίπεδο δυσκολίας</p>
+            </header>
+            <div class="mode-options">
+                <button class="mode-btn level-btn" onclick="selectLevel(1)">
+                    <span class="icon">⭐</span>
+                    <span>Επίπεδο 1</span>
+                    <span class="level-desc">Με άρθρο</span>
+                </button>
+                <button class="mode-btn level-btn" onclick="selectLevel(2)">
+                    <span class="icon">⭐⭐</span>
+                    <span>Επίπεδο 2</span>
+                    <span class="level-desc">Χωρίς άρθρο</span>
+                </button>
+            </div>
+            <button class="back-btn" onclick="goBackToStart()">← Πίσω</button>
+        </div>
+
         <!-- Οθόνη Επιλογής Χρόνου -->
         <div id="time-screen" class="start-screen hidden">
             <header>
@@ -68,7 +89,7 @@
                     <span>5 λεπτά</span>
                 </button>
             </div>
-            <button class="back-btn" onclick="goBack()">← Πίσω</button>
+            <button class="back-btn" onclick="goBackToLevel()">← Πίσω</button>
         </div>
 
         <!-- Κύριος χώρος παιχνιδιού (κρύβεται αρχικά) -->

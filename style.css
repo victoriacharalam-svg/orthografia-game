@@ -418,6 +418,20 @@ header p {
     max-width: 500px;
 }
 
+.level-btn {
+    border-color: #6C5CE7;
+    color: #6C5CE7;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.level-desc {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #888;
+}
+
 .time-btn {
     border-color: #FF9100;
     color: #FF9100;
