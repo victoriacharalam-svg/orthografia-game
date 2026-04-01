@@ -411,9 +411,24 @@ header p {
     background-color: #E8F8F5;
 }
 
+#time-screen .mode-options {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 500px;
+}
+
 .time-btn {
     border-color: #FF9100;
     color: #FF9100;
+    flex: 1 1 120px;
+    max-width: 140px;
+    aspect-ratio: 1 / 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 20px;
 }
 
 .back-btn {
