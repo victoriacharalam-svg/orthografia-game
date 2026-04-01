@@ -62,6 +62,16 @@ let playerBoards = [];
 let selectedMode = null;
 let selectedLevel = 1;
 let gameTimer = null;
+let gameDuration = 0;
+
+// GA4 Event Tracking Helper
+function trackEvent(eventName, params) {
+    try {
+        if (typeof gtag === 'function') {
+            gtag('event', eventName, params || {});
+        }
+    } catch (e) {}
+}
 
 // Ήχοι (Προαιρετικό, αν θέλεις να προσθέσεις στο μέλλον)
 const playCorrectSound = () => {
@@ -164,8 +174,21 @@ class PlayerBoard {
         const selectedOption = event.target.getAttribute('data-ending');
         const currentWord = this.playerWords[this.currentWordIndex];
 
+        const attemptNumber = this.attemptsForWord + 1;
+        trackEvent('answer_submitted', {
+            word: currentWord.full,
+            is_correct: selectedOption === currentWord.option,
+            level: this.level,
+            attempt_number: attemptNumber
+        });
+
         if (selectedOption === currentWord.option) {
             // Correct Answer
+            trackEvent('correct_answer', {
+                word: currentWord.full,
+                level: this.level,
+                attempt_number: attemptNumber
+            });
             playCorrectSound();
             this.wordEndingEl.textContent = currentWord.correct;
             this.wordEndingEl.className = 'word-ending missing filled-correct';
@@ -211,6 +234,12 @@ class PlayerBoard {
             
         } else {
             // Wrong Answer
+            trackEvent('wrong_answer', {
+                word: currentWord.stem + selectedOption,
+                correct_word: currentWord.full,
+                level: this.level,
+                attempt_number: attemptNumber
+            });
             playWrongSound();
             this.attemptsForWord++;
             
@@ -249,6 +278,12 @@ class PlayerBoard {
         
         this.currentWordIndex++;
         if (this.currentWordIndex >= this.playerWords.length) {
+            trackEvent('level_complete', {
+                level: this.level,
+                score: this.correctScore,
+                mistakes: this.wrongScore
+            });
+            trackEvent('restart_game');
             // restart array
             this.initGame();
             this.feedbackMessageEl.textContent = 'Μπράβο! Τελείωσες όλες τις λέξεις και ξεκινάμε νέο γύρο! 🏆';
@@ -306,6 +341,12 @@ window.startGame = function(seconds) {
         playerBoards.push(new PlayerBoard(gameContainerEl, selectedLevel));
     }
 
+    gameDuration = seconds;
+    trackEvent('start_game', {
+        mode: selectedMode,
+        level: selectedLevel,
+        duration_seconds: seconds
+    });
     startTimer(seconds);
 };
 
@@ -342,6 +383,17 @@ function endGame() {
     timerDisplayEl.classList.remove('timer-urgent');
     timerDisplayEl.classList.add('timer-ended');
     playerBoards.forEach(board => board.disable());
+
+    const totalCorrect = playerBoards.reduce((sum, b) => sum + b.correctScore, 0);
+    const totalWrong = playerBoards.reduce((sum, b) => sum + b.wrongScore, 0);
+    const total = totalCorrect + totalWrong;
+    trackEvent('finish_game', {
+        score: total > 0 ? Math.round((totalCorrect / total) * 100) : 0,
+        total_correct: totalCorrect,
+        total_wrong: totalWrong,
+        duration_seconds: gameDuration,
+        level_reached: selectedLevel
+    });
 }
 
 
