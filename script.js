@@ -100,6 +100,38 @@ function shuffleArray(array) {
     return newArray;
 }
 
+function shuffleNoConsecutive(array, getType) {
+    const groups = {};
+    shuffleArray(array).forEach(item => {
+        const type = getType(item);
+        if (!groups[type]) groups[type] = [];
+        groups[type].push(item);
+    });
+
+    const result = [];
+    let lastType = null;
+
+    while (result.length < array.length) {
+        const candidates = Object.entries(groups)
+            .filter(([type, items]) => items.length > 0 && type !== lastType);
+
+        if (candidates.length === 0) {
+            const any = Object.entries(groups).find(([_, items]) => items.length > 0);
+            if (!any) break;
+            result.push(any[1].shift());
+            lastType = any[0];
+        } else {
+            const maxCount = Math.max(...candidates.map(([_, items]) => items.length));
+            const top = candidates.filter(([_, items]) => items.length >= maxCount);
+            const [type, items] = top[Math.floor(Math.random() * top.length)];
+            result.push(items.shift());
+            lastType = type;
+        }
+    }
+
+    return result;
+}
+
 class PlayerBoard {
     constructor(containerElement, level) {
         this.level = level;
@@ -131,7 +163,7 @@ class PlayerBoard {
     initGame() {
         if (this.level === 1) {
             const nounArticles = ['ο', 'η', 'το', 'οι'];
-            this.playerWords = shuffleArray(words.filter(w => nounArticles.includes(w.article)));
+            this.playerWords = shuffleNoConsecutive(words.filter(w => nounArticles.includes(w.article)), w => w.article);
             const articleOptions = ['ο', 'η', 'το', 'οι'];
             this.optionBtns.forEach((btn, i) => {
                 if (i < articleOptions.length) {
@@ -143,7 +175,7 @@ class PlayerBoard {
                 }
             });
         } else {
-            this.playerWords = shuffleArray(words);
+            this.playerWords = shuffleNoConsecutive(words, w => w.option);
             this.optionBtns.forEach(btn => btn.style.display = '');
         }
         this.currentWordIndex = 0;
@@ -316,7 +348,7 @@ class PlayerBoard {
             this.feedbackMessageEl.className = 'feedback-message success pop-in';
             return;
         }
-        this.playerWords = shuffleArray(this.wrongWords);
+        this.playerWords = shuffleNoConsecutive(this.wrongWords, w => this.level === 1 ? w.article : w.option);
         this.wrongWords = [];
         this.currentWordIndex = 0;
         this.correctScore = 0;
@@ -348,7 +380,7 @@ class PlayerBoard {
             trackEvent('restart_game');
             if (this.wrongWords.length > 0) {
                 // Επανάληψη μόνο των λάθος λέξεων
-                this.playerWords = shuffleArray(this.wrongWords);
+                this.playerWords = shuffleNoConsecutive(this.wrongWords, w => this.level === 1 ? w.article : w.option);
                 this.wrongWords = [];
                 this.currentWordIndex = 0;
                 this.feedbackMessageEl.textContent = `Ας επαναλάβουμε τα λάθη σου! (${this.playerWords.length} λέξεις) 💪`;
