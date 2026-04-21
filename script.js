@@ -348,6 +348,7 @@ class PlayerBoard {
             this.feedbackMessageEl.className = 'feedback-message success pop-in';
             return;
         }
+        this.isReviewMode = true;
         this.playerWords = shuffleNoConsecutive(this.wrongWords, w => this.level === 1 ? w.article : w.option);
         this.wrongWords = [];
         this.currentWordIndex = 0;
@@ -377,16 +378,21 @@ class PlayerBoard {
                 score: this.correctScore,
                 mistakes: this.wrongScore
             });
-            trackEvent('restart_game');
-            if (this.wrongWords.length > 0) {
-                // Επανάληψη μόνο των λάθος λέξεων
+            if (this.isReviewMode) {
+                // Μετά την επανάληψη λαθών → αρχική σελίδα
+                this.feedbackMessageEl.textContent = 'Μπράβο! Τελείωσες την επανάληψη! 🏆';
+                this.feedbackMessageEl.className = 'feedback-message success pop-in';
+                setTimeout(() => location.reload(), 2000);
+            } else if (this.wrongWords.length > 0) {
                 this.playerWords = shuffleNoConsecutive(this.wrongWords, w => this.level === 1 ? w.article : w.option);
                 this.wrongWords = [];
                 this.currentWordIndex = 0;
+                this.isReviewMode = true;
                 this.feedbackMessageEl.textContent = `Ας επαναλάβουμε τα λάθη σου! (${this.playerWords.length} λέξεις) 💪`;
                 this.feedbackMessageEl.className = 'feedback-message error pop-in';
                 setTimeout(() => this.loadWord(), 1500);
             } else {
+                trackEvent('restart_game');
                 this.initGame();
                 this.feedbackMessageEl.textContent = 'Τέλειο! Καμία λάθος λέξη! Ξεκινάμε νέο γύρο! 🏆';
                 this.feedbackMessageEl.className = 'feedback-message success pop-in';
