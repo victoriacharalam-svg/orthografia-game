@@ -500,6 +500,10 @@ header p {
     background: #636e72;
 }
 
+.timer-review {
+    background: #6C5CE7;
+}
+
 #confetti-canvas {
     position: fixed;
     top: 0;

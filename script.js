@@ -309,6 +309,30 @@ class PlayerBoard {
         this.feedbackMessageEl.className = 'feedback-message success pop-in';
     }
 
+    startReview() {
+        if (this.wrongWords.length === 0) {
+            this.feedbackMessageEl.textContent = 'Μπράβο! Δεν έκανες κανένα λάθος! 🌟';
+            this.feedbackMessageEl.className = 'feedback-message success pop-in';
+            return;
+        }
+        this.playerWords = shuffleArray(this.wrongWords);
+        this.wrongWords = [];
+        this.currentWordIndex = 0;
+        this.correctScore = 0;
+        this.wrongScore = 0;
+        this.updateScore();
+        this.feedbackMessageEl.textContent = `💪 Επαναλαμβάνουμε ${this.playerWords.length} λάθη!`;
+        this.feedbackMessageEl.className = 'feedback-message error pop-in';
+        this.optionBtns.forEach(btn => {
+            if (btn.style.display !== 'none') {
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.transform = 'scale(1)';
+            }
+        });
+        setTimeout(() => this.loadWord(), 1800);
+    }
+
     handleNextClick() {
         // Αφαίρεση pulse animation
         this.optionBtns.forEach(btn => btn.classList.remove('pulse-btn'));
@@ -441,6 +465,16 @@ function endGame() {
         duration_seconds: gameDuration,
         level_reached: selectedLevel
     });
+
+    const hasWrongWords = playerBoards.some(b => b.wrongWords.length > 0);
+    if (hasWrongWords) {
+        setTimeout(() => {
+            timerDisplayEl.textContent = '📝 Επανάληψη λαθών!';
+            timerDisplayEl.classList.remove('timer-ended');
+            timerDisplayEl.classList.add('timer-review');
+            playerBoards.forEach(board => board.startReview());
+        }, 2000);
+    }
 }
 
 
