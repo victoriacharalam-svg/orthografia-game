@@ -148,6 +148,7 @@ class PlayerBoard {
         this.currentWordIndex = 0;
         this.correctScore = 0;
         this.wrongScore = 0;
+        this.wrongWords = [];
         this.updateScore();
         this.loadWord();
     }
@@ -231,8 +232,12 @@ class PlayerBoard {
             
             if (this.attemptsForWord === 0) {
                 this.correctScore++;
-                this.updateScore();
+            } else {
+                if (!this.wrongWords.includes(currentWord)) {
+                    this.wrongWords.push(currentWord);
+                }
             }
+            this.updateScore();
 
             // Fire Confetti
             confetti({
@@ -316,10 +321,19 @@ class PlayerBoard {
                 mistakes: this.wrongScore
             });
             trackEvent('restart_game');
-            // restart array
-            this.initGame();
-            this.feedbackMessageEl.textContent = 'Μπράβο! Τελείωσες όλες τις λέξεις και ξεκινάμε νέο γύρο! 🏆';
-            this.feedbackMessageEl.className = 'feedback-message success pop-in';
+            if (this.wrongWords.length > 0) {
+                // Επανάληψη μόνο των λάθος λέξεων
+                this.playerWords = shuffleArray(this.wrongWords);
+                this.wrongWords = [];
+                this.currentWordIndex = 0;
+                this.feedbackMessageEl.textContent = `Ας επαναλάβουμε τα λάθη σου! (${this.playerWords.length} λέξεις) 💪`;
+                this.feedbackMessageEl.className = 'feedback-message error pop-in';
+                setTimeout(() => this.loadWord(), 1500);
+            } else {
+                this.initGame();
+                this.feedbackMessageEl.textContent = 'Τέλειο! Καμία λάθος λέξη! Ξεκινάμε νέο γύρο! 🏆';
+                this.feedbackMessageEl.className = 'feedback-message success pop-in';
+            }
         } else {
             this.loadWord();
         }
