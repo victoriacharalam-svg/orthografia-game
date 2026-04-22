@@ -46,7 +46,47 @@ const words = [
     { article: 'το', stem: 'βουν', option: 'ο', correct: 'ό', full: 'βουνό' },
     { article: 'το', stem: 'δέντρ', option: 'ο', correct: 'ο', full: 'δέντρο' },
     { article: 'το', stem: 'φύλλ', option: 'ο', correct: 'ο', full: 'φύλλο' },
-    { article: 'το', stem: 'χωρι', option: 'ο', correct: 'ό', full: 'χωριό' }
+    { article: 'το', stem: 'χωρι', option: 'ο', correct: 'ό', full: 'χωριό' },
+
+    // Νέα Ουσιαστικά σε -ι
+    { article: 'το', stem: 'ψωμ', option: 'ι', correct: 'ί', full: 'ψωμί' },
+    { article: 'το', stem: 'αλάτ', option: 'ι', correct: 'ι', full: 'αλάτι' },
+    { article: 'το', stem: 'νησ', option: 'ι', correct: 'ί', full: 'νησί' },
+    { article: 'το', stem: 'μολύβ', option: 'ι', correct: 'ι', full: 'μολύβι' },
+    { article: 'το', stem: 'κλειδ', option: 'ι', correct: 'ί', full: 'κλειδί' },
+    { article: 'το', stem: 'ταξίδ', option: 'ι', correct: 'ι', full: 'ταξίδι' },
+
+    // Νέα Ουσιαστικά σε -η
+    { article: 'η', stem: 'ζω', option: 'η', correct: 'ή', full: 'ζωή' },
+    { article: 'η', stem: 'τιμ', option: 'η', correct: 'ή', full: 'τιμή' },
+    { article: 'η', stem: 'γιορτ', option: 'η', correct: 'ή', full: 'γιορτή' },
+    { article: 'η', stem: 'πόλ', option: 'η', correct: 'η', full: 'πόλη' },
+    { article: 'η', stem: 'θέσ', option: 'η', correct: 'η', full: 'θέση' },
+
+    // Νέα Ρήματα (-ει ή -ω)
+    { article: 'εγώ', stem: 'πίν', option: 'ω', correct: 'ω', full: 'πίνω' },
+    { article: 'αυτός', stem: 'τρώ', option: 'ει', correct: 'ει', full: 'τρώει' },
+    { article: 'αυτή', stem: 'χορεύ', option: 'ει', correct: 'ει', full: 'χορεύει' },
+    { article: 'αυτός', stem: 'φεύγ', option: 'ει', correct: 'ει', full: 'φεύγει' },
+    { article: 'εγώ', stem: 'ανοίγ', option: 'ω', correct: 'ω', full: 'ανοίγω' },
+    { article: 'εγώ', stem: 'κάν', option: 'ω', correct: 'ω', full: 'κάνω' },
+
+    // Νέος Πληθυντικός σε -οι
+    { article: 'οι', stem: 'σκύλ', option: 'οι', correct: 'οι', full: 'σκύλοι' },
+    { article: 'οι', stem: 'αδελφ', option: 'οι', correct: 'οί', full: 'αδελφοί' },
+    { article: 'οι', stem: 'νόμ', option: 'οι', correct: 'οι', full: 'νόμοι' },
+    { article: 'οι', stem: 'ποταμ', option: 'οι', correct: 'οί', full: 'ποταμοί' },
+    { article: 'οι', stem: 'ουραν', option: 'οι', correct: 'οί', full: 'ουρανοί' },
+
+    // Νέα Ουσιαστικά σε -ο
+    { article: 'το', stem: 'παράθυρ', option: 'ο', correct: 'ο', full: 'παράθυρο' },
+    { article: 'το', stem: 'σχολεί', option: 'ο', correct: 'ο', full: 'σχολείο' },
+    { article: 'το', stem: 'φαγητ', option: 'ο', correct: 'ό', full: 'φαγητό' },
+    { article: 'το', stem: 'αυτοκίνητ', option: 'ο', correct: 'ο', full: 'αυτοκίνητο' },
+    { article: 'το', stem: 'πάρκ', option: 'ο', correct: 'ο', full: 'πάρκο' },
+    { article: 'το', stem: 'τηλέφων', option: 'ο', correct: 'ο', full: 'τηλέφωνο' },
+    { article: 'το', stem: 'ποτ', option: 'ο', correct: 'ό', full: 'ποτό' },
+    { article: 'το', stem: 'αεροπλάν', option: 'ο', correct: 'ο', full: 'αεροπλάνο' },
 ];
 
 // DOM Elements for Mode Selection
