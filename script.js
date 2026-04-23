@@ -395,16 +395,9 @@ class PlayerBoard {
         this.correctScore = 0;
         this.wrongScore = 0;
         this.updateScore();
+        this.loadWord();
         this.feedbackMessageEl.textContent = `💪 Επαναλαμβάνουμε ${this.playerWords.length} λάθη!`;
         this.feedbackMessageEl.className = 'feedback-message error pop-in';
-        this.optionBtns.forEach(btn => {
-            if (btn.style.display !== 'none') {
-                btn.disabled = false;
-                btn.style.opacity = '1';
-                btn.style.transform = 'scale(1)';
-            }
-        });
-        setTimeout(() => this.loadWord(), 1800);
     }
 
     handleNextClick() {
@@ -429,8 +422,9 @@ class PlayerBoard {
                 this.currentWordIndex = 0;
                 this.isReviewMode = true;
                 this.feedbackMessageEl.textContent = `Ας επαναλάβουμε τα λάθη σου! (${this.playerWords.length} λέξεις) 💪`;
+                this.loadWord();
+                this.feedbackMessageEl.textContent = `Ας επαναλάβουμε τα λάθη σου! (${this.playerWords.length} λέξεις) 💪`;
                 this.feedbackMessageEl.className = 'feedback-message error pop-in';
-                setTimeout(() => this.loadWord(), 1500);
             } else {
                 trackEvent('restart_game');
                 const lastWord = this.playerWords[this.playerWords.length - 1];
